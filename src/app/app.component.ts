@@ -8,13 +8,16 @@ import {Component, Renderer2} from '@angular/core';
 })
 export class AppComponent {
 
+  darktheme = false;
+
   constructor(private renderer: Renderer2) {
   }
 
 
-  changetheme(event: any) {
-    console.log(event);
-    if (event.checked === true) {
+  changetheme() {
+    this.darktheme = !this.darktheme;
+    console.log(this.darktheme);
+    if (this.darktheme === true) {
       this.renderer.addClass(document.body, 'dark-theme');
     } else {
       this.renderer.removeClass(document.body, 'dark-theme');
