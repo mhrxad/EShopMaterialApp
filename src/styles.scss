@@ -1,1 +1,36 @@
-/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/theming';
+@import "assets/scss/font-face";
+@include mat-core();
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Vazir', 'IRANSans';
+  font-size: 14px;
+  background-color: rgb(236, 239, 241);
+}
+*{
+  font-family: 'Vazir', 'IRANSans';
+  margin: 0;
+  padding: 0;
+}
+
+$candy-app-primary: mat-palette($mat-indigo);
+$candy-app-accent: mat-palette($mat-pink, A200, A100, A400);
+$candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent);
+@include angular-material-theme($candy-app-theme);
+
+$dark-primary: mat-palette($mat-green, A200, A100, A400);
+$dark-accent: mat-palette($mat-amber, A200, A100, A400);
+$dark-warn: mat-palette($mat-deep-orange, A200, A100, A400);
+$dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+
+.dark-theme {
+  background-color: black;
+  @include angular-material-theme($dark-theme);
+}
+
+

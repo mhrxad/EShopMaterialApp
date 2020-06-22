@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, Renderer2} from '@angular/core';
+
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'EShopMaterialApp';
+
+  constructor(private renderer: Renderer2) {
+  }
+
+
+  changetheme(event: any) {
+    console.log(event);
+    if (event.checked === true) {
+      this.renderer.addClass(document.body, 'dark-theme');
+    } else {
+      this.renderer.removeClass(document.body, 'dark-theme');
+    }
+  }
+
+
 }
