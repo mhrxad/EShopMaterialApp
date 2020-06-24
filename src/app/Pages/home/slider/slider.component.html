@@ -1,0 +1,21 @@
+
+<mat-card fxLayout="row" class="m-4">
+  <div fxLayoutAlign="center center" fxFlex>
+    <button mat-fab (click)="nextImageClick()" color="primary">بعدي</button>
+  </div>
+
+  <ng-image-slider fxFlex="90" fxLayoutAlign="center center"
+                   [animationSpeed]="0.1"
+                   [imagePopup]="false"
+                   [autoSlide]="5"
+                   [infinite]="true"
+                   [showArrow]="false"
+                   [direction]="'rtl'"
+                   [images]="imageObject" [imageSize]="imagesize"
+                   #nav>
+  </ng-image-slider>
+
+  <div fxLayoutAlign="center center" fxFlex>
+    <button mat-fab (click)="prevImageClick()" color="primary">قبلی</button>
+  </div>
+</mat-card>

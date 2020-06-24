@@ -1,15 +1,19 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {AppRoutingModule} from './app-routing.module';
+import {AppRoutingModule, routingComponents} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from './material/material.module';
-import { FlexLayoutModule } from '@angular/flex-layout';
-
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {NgImageSliderModule} from 'ng-image-slider';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {CookieService} from 'ngx-cookie-service';
+import { EshopInterceptor } from './Utilities/EshopInterceptor';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    routingComponents
   ],
   imports: [
     BrowserModule,
@@ -17,8 +21,17 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     BrowserAnimationsModule,
     MaterialModule,
     FlexLayoutModule,
+    NgImageSliderModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: EshopInterceptor,
+      multi: true
+    },
+    CookieService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
