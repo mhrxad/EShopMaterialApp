@@ -1,4 +1,7 @@
-import {Component, Renderer2} from '@angular/core';
+import {Component, Renderer2, OnInit} from '@angular/core';
+import {AuthService} from './Services/auth.service';
+import {CurrentUserDTO} from './DTOs/Account/CurrentUserDTO';
+
 
 
 @Component({
@@ -6,23 +9,29 @@ import {Component, Renderer2} from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-  darktheme = false;
-
-  constructor(private renderer: Renderer2) {
+  constructor(
+    private authService: AuthService
+  ) {
   }
 
+  ngOnInit(): void {
 
-  changetheme() {
-    this.darktheme = !this.darktheme;
-    console.log(this.darktheme);
-    if (this.darktheme === true) {
-      this.renderer.addClass(document.body, 'dark-theme');
-    } else {
-      this.renderer.removeClass(document.body, 'dark-theme');
-    }
+    this.authService.checkUserAuth().subscribe(res => {
+      if (res.status === 'Success') {
+        const user = new CurrentUserDTO(
+          res.data.userId,
+          res.data.firstName,
+          res.data.lastName,
+          res.data.address);
+
+        this.authService.setCurrentUser(user);
+      }
+    });
+
   }
+
 
 
 }

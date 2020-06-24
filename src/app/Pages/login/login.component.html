@@ -1,0 +1,63 @@
+<div *ngIf="!isLoading" fxLayout="row" fxLayoutAlign="center center" class="m-4">
+
+  <mat-card fxFlex.lt-md="100" fxFlex.md="60" fxFlex="50">
+    <form [formGroup]="loginForm" (ngSubmit)="submitLoginForm()">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>ورود</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+
+        <!--        ایمیل-->
+        <div fxLayout="row" fxLayout.lt-sm="column">
+          <div fxFlex="100" fxLayoutAlign="center center">
+            <mat-form-field fxFlex="80">
+              <mat-label>ایمیل</mat-label>
+              <input matInput type="email" formControlName="email" required>
+              <mat-error *ngIf="loginForm.controls.email.errors?.required">
+                لطفا ایمیل خود را وارد نمایید
+              </mat-error>
+              <mat-error *ngIf="loginForm.controls.email.errors?.maxlength">
+                تعداد کاراکترها نمیتواند بیشتر از 100 باشد
+              </mat-error>
+              <mat-error *ngIf="loginForm.controls.email.errors?.email">
+                ایمیل وارد شده معتبر نمیباشد
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!--        رمز عبور تایید رمز عبور-->
+        <div fxLayout="row" fxLayout.lt-sm="column">
+          <div fxFlex="100" fxLayoutAlign="center center">
+            <mat-form-field fxFlex="80">
+              <mat-label>رمز عبور</mat-label>
+              <input matInput type="password" formControlName="password" required>
+              <mat-error *ngIf="loginForm.controls.password.errors?.required">
+                لطفا رمزعبور خود را وارد نمایید
+              </mat-error>
+              <mat-error *ngIf="loginForm.controls.password.errors?.maxlength">
+                تعداد کاراکترها نمیتواند بیشتر از 100 باشد
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+      </mat-card-content>
+      <mat-card-actions fxLayoutAlign="center center">
+        <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">ثبت</button>
+        <button mat-raised-button color="warn" type="reset">خالی کردن فرم</button>
+      </mat-card-actions>
+    </form>
+
+  </mat-card>
+
+</div>
+
+
+<div fxLayout="column" fxLayoutAlign="center center" class="spinner" *ngIf="isLoading">
+  <div>
+    <mat-spinner></mat-spinner>
+  </div>
+</div>
+

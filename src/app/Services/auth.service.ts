@@ -15,7 +15,6 @@ export class AuthService {
 
   private currentUser: BehaviorSubject<CurrentUserDTO> = new BehaviorSubject<CurrentUserDTO>(null);
 
-
   constructor(
     private http: HttpClient
   ) { }

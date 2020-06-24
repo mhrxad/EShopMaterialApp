@@ -8,14 +8,16 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {NgImageSliderModule} from 'ng-image-slider';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {CookieService} from 'ngx-cookie-service';
-import { EshopInterceptor } from './Utilities/EshopInterceptor';
+import {EshopInterceptor} from './Utilities/EshopInterceptor';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { HeaderSidenavComponent } from './SharedComponents/header-sidenav/header-sidenav.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
+    HeaderSidenavComponent
   ],
   imports: [
     BrowserModule,
