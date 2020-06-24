@@ -1,0 +1,128 @@
+<div *ngIf="!isLoading" fxLayout="row" fxLayoutAlign="center center" class="m-4">
+
+  <mat-card fxFlex.lt-md="100" fxFlex.md="60" fxFlex="50">
+    <form [formGroup]="registerForm" (ngSubmit)="submitRegisterForm()">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>فرم ثبت نام</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+
+        <!--        نام و نام خانوادگی-->
+        <div fxLayout="row" fxLayout.lt-sm="column">
+
+          <div fxFlex="50" fxLayoutAlign="center center">
+            <mat-form-field>
+              <mat-label>نام</mat-label>
+              <input matInput type="text" formControlName="firstName" required>
+              <mat-error *ngIf="registerForm.controls.firstName.errors?.required">
+                لطفا نام خود را وارد نمایید
+              </mat-error>
+              <mat-error *ngIf="registerForm.controls.firstName.errors?.maxlength">
+                تعداد کاراکترها نمیتواند بیشتر از 100 باشد
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div fxFlex="50" fxLayoutAlign="center center">
+            <mat-form-field>
+              <mat-label>نام خانوادگی</mat-label>
+              <input matInput type="text" formControlName="lastName" required>
+              <mat-error *ngIf="registerForm.controls.lastName.errors?.required">
+                لطفا نام خانوادگی خود را وارد نمایید
+              </mat-error>
+              <mat-error *ngIf="registerForm.controls.lastName.errors?.maxlength">
+                تعداد کاراکترها نمیتواند بیشتر از 100 باشد
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <!--        ایمیل-->
+        <div fxLayout="row" fxLayout.lt-sm="column">
+          <div fxFlex="100" fxLayoutAlign="center center">
+            <mat-form-field fxFlex="80">
+              <mat-label>ایمیل</mat-label>
+              <input matInput type="email" formControlName="email" required>
+              <mat-error *ngIf="registerForm.controls.email.errors?.required">
+                لطفا ایمیل خود را وارد نمایید
+              </mat-error>
+              <mat-error *ngIf="registerForm.controls.email.errors?.maxlength">
+                تعداد کاراکترها نمیتواند بیشتر از 100 باشد
+              </mat-error>
+              <mat-error *ngIf="registerForm.controls.email.errors?.email">
+                ایمیل وارد شده معتبر نمیباشد
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!--        آدرس-->
+        <div fxLayout="row" fxLayout.lt-sm="column">
+          <div fxFlex="100" fxLayoutAlign="center center">
+            <mat-form-field fxFlex="80">
+              <mat-label>آدرس</mat-label>
+              <textarea matInput type="text" formControlName="address" required></textarea>
+              <mat-error *ngIf="registerForm.controls.address.errors?.required">
+                لطفا آدرس خود را وارد نمایید
+              </mat-error>
+              <mat-error *ngIf="registerForm.controls.address.errors?.maxlength">
+                تعداد کاراکترها نمیتواند بیشتر از 100 باشد
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!--        رمز عبور تایید رمز عبور-->
+        <div fxLayout="row" fxLayout.lt-sm="column">
+
+          <div fxFlex="50" fxLayoutAlign="center center">
+            <mat-form-field>
+              <mat-label>رمز عبور</mat-label>
+              <input matInput type="password" formControlName="password" required>
+              <mat-error *ngIf="registerForm.controls.password.errors?.required">
+                لطفا رمزعبور خود را وارد نمایید
+              </mat-error>
+              <mat-error *ngIf="registerForm.controls.password.errors?.maxlength">
+                تعداد کاراکترها نمیتواند بیشتر از 100 باشد
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div fxFlex="50" fxLayoutAlign="center center">
+            <mat-form-field>
+              <mat-label>تایید رمز عبور</mat-label>
+              <input matInput type="password" formControlName="confirmPassword" required>
+              <mat-error *ngIf="registerForm.controls.confirmPassword.errors?.required">
+                لطفا تایید رمز عبور را وارد نمایید
+              </mat-error>
+              <mat-error *ngIf="registerForm.controls.confirmPassword.errors?.maxlength">
+                تعداد کاراکترها نمیتواند بیشتر از 100 باشد
+              </mat-error>
+              <mat-error *ngIf="registerForm.errors?.misMatch">
+                تکرار رمز عبور مطابقت ندارد
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+      </mat-card-content>
+      <mat-card-actions fxLayoutAlign="center center">
+        <button mat-raised-button color="primary" type="submit" [disabled]="!registerForm.valid">ثبت</button>
+        <button mat-raised-button color="warn" type="reset">خالی کردن فرم</button>
+      </mat-card-actions>
+    </form>
+
+  </mat-card>
+
+</div>
+
+
+<div fxLayout="column" fxLayoutAlign="center center" class="spinner" *ngIf="isLoading">
+  <div>
+    <mat-spinner></mat-spinner>
+  </div>
+</div>
+

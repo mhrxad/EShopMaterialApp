@@ -9,11 +9,13 @@ import {NgImageSliderModule} from 'ng-image-slider';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {CookieService} from 'ngx-cookie-service';
 import { EshopInterceptor } from './Utilities/EshopInterceptor';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    routingComponents
+    routingComponents,
   ],
   imports: [
     BrowserModule,
@@ -22,7 +24,9 @@ import { EshopInterceptor } from './Utilities/EshopInterceptor';
     MaterialModule,
     FlexLayoutModule,
     NgImageSliderModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [
     {
