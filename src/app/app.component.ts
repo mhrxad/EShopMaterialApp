@@ -1,4 +1,4 @@
-import {Component, Renderer2, OnInit} from '@angular/core';
+import {Component, Renderer2, OnInit, OnDestroy} from '@angular/core';
 import {AuthService} from './Services/auth.service';
 import {CurrentUserDTO} from './DTOs/Account/CurrentUserDTO';
 
@@ -11,13 +11,13 @@ import {CurrentUserDTO} from './DTOs/Account/CurrentUserDTO';
 })
 export class AppComponent implements OnInit {
 
+
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
   ) {
   }
 
   ngOnInit(): void {
-
     this.authService.checkUserAuth().subscribe(res => {
       if (res.status === 'Success') {
         const user = new CurrentUserDTO(
@@ -29,8 +29,8 @@ export class AppComponent implements OnInit {
         this.authService.setCurrentUser(user);
       }
     });
-
   }
+
 
 
 

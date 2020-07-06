@@ -1,4 +1,4 @@
-import {Component, OnInit, Renderer2} from '@angular/core';
+import {Component, OnDestroy, OnInit, Renderer2} from '@angular/core';
 import {CurrentUserDTO} from '../../DTOs/Account/CurrentUserDTO';
 import {AuthService} from '../../Services/auth.service';
 import {CookieService} from 'ngx-cookie-service';
@@ -51,7 +51,6 @@ export class HeaderSidenavComponent implements OnInit {
   changetheme() {
     this.isLoading = true;
     this.darktheme = !this.darktheme;
-    console.log(this.darktheme);
     if (this.darktheme === true) {
       this.renderer.addClass(document.body, 'dark-theme');
     } else {
@@ -61,3 +60,5 @@ export class HeaderSidenavComponent implements OnInit {
   }
 
 }
+
+

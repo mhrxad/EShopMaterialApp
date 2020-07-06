@@ -5,6 +5,8 @@ import {SliderComponent} from './Pages/home/slider/slider.component';
 import {RegisterComponent} from './Pages/register/register.component';
 import {ActiveAccountComponent} from './SharedComponents/active-account/active-account.component';
 import {LoginComponent} from './Pages/login/login.component';
+import { HeaderSidenavComponent } from './SharedComponents/header-sidenav/header-sidenav.component';
+import {ProductsComponent} from './Pages/products/products.component';
 
 
 const routes: Routes = [
@@ -12,8 +14,7 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'activate-account/:activeCode', component: ActiveAccountComponent},
   {path: 'login', component: LoginComponent},
-
-
+  {path: 'products', component: ProductsComponent},
 ];
 
 @NgModule({
@@ -27,5 +28,7 @@ export const routingComponents = [
   SliderComponent,
   RegisterComponent,
   ActiveAccountComponent,
-  LoginComponent
+  LoginComponent,
+  ProductsComponent,
+  HeaderSidenavComponent
 ];

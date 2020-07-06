@@ -1,0 +1,110 @@
+<mat-sidenav-container *ngIf="!isLoading">
+  <mat-sidenav [opened]="!deviceXs" [mode]="!deviceXs ? 'side' : 'over'" #nav fxFlex.lt-sm="100" fxFlex.sm="35" fxFlex.lt-md="25" fxFlex.md="35" fxFlex="25">
+
+<div fxLayoutAlign="center center">
+  <button mat-mini-fab color="warn" [fxShow]="deviceXs" class="m-2" (click)="nav.toggle()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+    <mat-card class="m-3">
+      <mat-card-header>
+        <div mat-card-avatar></div>
+        <mat-card-title>دسته بندی محصولات</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <section *ngFor="let cat of categories">
+          <mat-checkbox type="checkbox" [value]="cat.id" [id]="'cat_' + cat.id"
+                        (change)="filterCategories($event)"
+                        [checked]="filterProducts.categories?.indexOf(cat.id) >= 0">{{cat.title}}
+          </mat-checkbox>
+        </section>
+      </mat-card-content>
+    </mat-card>
+  </mat-sidenav>
+
+  <mat-card class="m-4">
+    <mat-card-content fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-around center">
+
+      <button mat-raised-button [fxShow]="deviceXs" color="primary" class="m-2" (click)="nav.toggle()">
+        فیلتر محصولات
+        <mat-icon>filter_alt</mat-icon>
+      </button>
+
+      <mat-form-field appearance="fill">
+        <mat-label>مرتب سازی</mat-label>
+        <mat-select [(ngModel)]="filterProducts.orderBy" id="orderBy" [(value)]="filterProducts.orderBy"
+                    (selectionChange)="changeOrder($event)">
+          <mat-option></mat-option>
+          <mat-option value='0'>بر اساس قیمت (کم به زیاد) &uarr;</mat-option>
+          <mat-option value='1'>بر اساس قیمت (زیاد به کم) &darr;</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>تعداد نمایش در هر صفحه</mat-label>
+        <mat-select [(ngModel)]="filterProducts.takeEntity" [(value)]="filterProducts.takeEntity"
+                    (selectionChange)="getProducts()">
+          <mat-option value='6'>6</mat-option>
+          <mat-option value='9'>9</mat-option>
+          <mat-option value='12'>12</mat-option>
+          <mat-option value='15'>15</mat-option>
+          <mat-option value='24'>24</mat-option>
+          <mat-option value='30'>30</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- single-product-wrap start -->
+  <div fxLayout='row wrap' fxLayoutAlign="center center" class="m-4">
+    <app-single-product fxFlex.gt-md="33.3" fxFlex.md="50" fxFlex.sm="100" fxFlex.xs="100"
+                        *ngFor="let product of filterProducts.products"
+                        [product]="product"></app-single-product>
+  </div>
+  <!-- single-product-wrap end -->
+
+  <!-- pagination START -->
+  <mat-card class="m-4">
+    <mat-card-content fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-around center">
+
+      <mat-chip-list class="m-2">
+        <mat-chip color="primary" selected>
+          نمایش {{filterProducts.pageId * filterProducts.takeEntity - filterProducts.takeEntity + 1}}
+          تا {{filterProducts.pageId * filterProducts.takeEntity}}
+          از {{filterProducts.pageCount * filterProducts.takeEntity}}
+        </mat-chip>
+      </mat-chip-list>
+
+      <div fxLayout="row">
+        <button mat-mini-fab>
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+        <div [ngClass]="{'active':page === filterProducts.activePage}"
+             *ngFor="let page of pages"
+             (click)="setPage(page)">
+          <button mat-mini-fab color="primary" class="mx-1"
+                  [disabled]="page != filterProducts.activePage">{{page}}</button>
+        </div>
+        <button mat-mini-fab>
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+  <!-- pagination END -->
+
+</mat-sidenav-container>
+
+<div fxLayout="column" fxLayoutAlign="center center" class="spinner" *ngIf="isLoading">
+  <div>
+    <mat-spinner></mat-spinner>
+  </div>
+</div>
+
+
+
+
+
+
