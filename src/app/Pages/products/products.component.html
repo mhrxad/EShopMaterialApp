@@ -1,15 +1,15 @@
 <mat-sidenav-container *ngIf="!isLoading">
-  <mat-sidenav [opened]="!deviceXs" [mode]="!deviceXs ? 'side' : 'over'" #nav fxFlex.lt-sm="100" fxFlex.sm="35" fxFlex.lt-md="25" fxFlex.md="35" fxFlex="25">
+  <mat-sidenav [opened]="!deviceXs" [mode]="!deviceXs ? 'side' : 'over'" #nav fxFlex.lt-sm="100" fxFlex.sm="35"
+               fxFlex.lt-md="25" fxFlex.md="35" fxFlex="25">
 
-<div fxLayoutAlign="center center">
-  <button mat-mini-fab color="warn" [fxShow]="deviceXs" class="m-2" (click)="nav.toggle()">
-    <mat-icon>close</mat-icon>
-  </button>
-</div>
+    <div fxLayoutAlign="center center">
+      <button mat-mini-fab color="warn" [fxShow]="deviceXs" class="m-2" (click)="nav.toggle()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
 
     <mat-card class="m-3">
       <mat-card-header>
-        <div mat-card-avatar></div>
         <mat-card-title>دسته بندی محصولات</mat-card-title>
       </mat-card-header>
       <mat-card-content>
@@ -21,6 +21,44 @@
         </section>
       </mat-card-content>
     </mat-card>
+
+    <mat-card class="m-3">
+      <mat-card-header>
+        <mat-card-title>قیمت</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div>
+          <mat-slider
+            thumbLabel
+            step="100000"
+            tickInterval="1000000"
+            min="0"
+            max="100000000"
+            [displayWith]="formatLabel"
+            (change)="setMinPrice($event)"
+          ></mat-slider>
+          <div> از {{ filterProducts.startPrice | number }} تومان </div>
+        </div>
+        <div>
+          <mat-slider
+            thumbLabel
+            step="100000"
+            tickInterval="1000000"
+            [min]="filterProducts.startPrice"
+            max="10000000000"
+            [displayWith]="formatLabel"
+            (change)="setMaxPrice($event)"
+          ></mat-slider>
+          <div> تا {{filterProducts.endPrice | number}} تومان </div>
+        </div>
+        <div fxLayoutAlign="center center">
+          <button mat-raised-button color="primary" class="mt-2" (click)="filterButton()">فیلتر</button>
+        </div>
+
+
+      </mat-card-content>
+    </mat-card>
+
   </mat-sidenav>
 
   <mat-card class="m-4">

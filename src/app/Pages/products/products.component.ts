@@ -47,22 +47,47 @@ export class ProductsComponent implements OnInit, OnDestroy {
         pageId = parseInt(params.pageId, 0);
       }
       this.filterProducts.categories = params.categories ? params.categories : [];
-      console.log(this.filterProducts.categories);
       this.filterProducts.pageId = pageId;
+      this.filterProducts.startPrice = params.startPrice ? params.startPrice : 0;
+      this.filterProducts.endPrice = params.endPrice ? params.endPrice : 0;
       this.getProducts();
     });
 
     this.productsService.getProductActiveCategories().subscribe(res => {
       if (res.status === 'Success') {
         this.categories = res.data;
-        console.log(this.categories);
       }
     });
   }
 
-  opennav() {
-    this.sidenav = !this.sidenav;
-    console.log(this.sidenav);
+  formatLabel(value: number) {
+    if (value >= 1000000) {
+      return Math.round(value / 1000000) + 'm';
+    }
+    if (value >= 1000) {
+      return Math.round(value / 1000) + 'k';
+    }
+    return value;
+  }
+
+  setMinPrice(event: any) {
+    this.filterProducts.startPrice = parseInt(event.value, 0);
+  }
+
+  setMaxPrice(event: any) {
+    this.filterProducts.endPrice = parseInt(event.value, 0);
+  }
+
+  filterButton() {
+    this.router.navigate(
+      ['products'], {
+        queryParams: {
+          categories: this.filterProducts.categories,
+          startPrice: this.filterProducts.startPrice,
+          endPrice: this.filterProducts.endPrice
+        }
+      }
+    );
   }
 
   changeOrder(event: any) {
@@ -73,18 +98,22 @@ export class ProductsComponent implements OnInit, OnDestroy {
       case ProductsOrderBy.PriceAsc.toString():
         this.router.navigate(['products'], {
           queryParams: {
-            // pageId: this.filterProducts.activePage,
+            pageId: this.filterProducts.activePage,
             categories: this.filterProducts.categories,
-            orderBy: 'priceAsc'
+            orderBy: 'priceAsc',
+            startPrice: this.filterProducts.startPrice,
+            endPrice: this.filterProducts.endPrice
           }
         });
         break;
       case ProductsOrderBy.PriceDes.toString():
         this.router.navigate(['products'], {
           queryParams: {
-            // pageId: this.filterProducts.activePage,
+            pageId: this.filterProducts.activePage,
             categories: this.filterProducts.categories,
-            orderBy: 'priceDes'
+            orderBy: 'priceDes',
+            startPrice: this.filterProducts.startPrice,
+            endPrice: this.filterProducts.endPrice
           }
         });
         break;
@@ -114,15 +143,21 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   setPage(page: number) {
-    this.router.navigate(['products'], {queryParams: {pageId: page, categories: this.filterProducts.categories}});
+    this.router.navigate(['products'],
+      {
+        queryParams: {
+          pageId: page,
+          categories: this.filterProducts.categories,
+          startPrice: this.filterProducts.startPrice,
+          endPrice: this.filterProducts.endPrice
+        }
+      });
   }
 
   getProducts() {
     this.productsService.getFilteredProducts(this.filterProducts).subscribe(res => {
       this.isLoading = true;
-
       this.filterProducts = res.data;
-      console.log(res);
       if (res.data.title === null) {
         this.filterProducts.title = '';
       }
