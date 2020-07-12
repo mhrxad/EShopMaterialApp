@@ -1,0 +1,106 @@
+<div *ngIf="!isLoading">
+  <mat-card class="m-4">
+
+    <!-- Gallery Start -->
+    <mat-card-content *ngIf="product" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-around stretch">
+      <mat-card fxFlex="90" fxFlex.gt-md="47" class="m-2">
+        <mat-card-header>
+          <mat-card-title>تصاویر</mat-card-title>
+        </mat-card-header>
+        <img mat-card-image *ngIf="product.imageName" [src]="mainImage">
+
+        <div *ngIf="galleries.length > 1" fxLayout="row" fxLayoutAlign="space-around stretch">
+
+          <mat-card [ngClass]="{'active-gallary':selectedImageId === 0}" (click)="selectImage(0)" class="m-1 pointer">
+            <img mat-card-image [src]="imagePath + product.imageName" [alt]="product.productName">
+          </mat-card>
+
+          <mat-card class="m-1 pointer" [ngClass]="{'active-gallary':selectedImageId === gallery.id}"
+                    *ngFor="let gallery of galleries"
+                    (click)="selectImage(gallery.id)">
+            <img mat-card-image *ngIf="product.imageName" [src]="imageGalleryPath + gallery.imageName"
+                 [alt]="product.productName">
+          </mat-card>
+
+        </div>
+        <mat-card-content>
+        </mat-card-content>
+      </mat-card>
+      <!-- Gallery End -->
+
+      <!-- Details Start -->
+      <mat-card fxFlex="90" fxFlex.gt-md="47" class="m-2">
+        <mat-card-content>
+          <mat-card-header>
+            <mat-card-title>{{product.productName}}</mat-card-title>
+            <mat-card-subtitle class="mt-3">
+              <mat-chip-list>
+                <mat-chip color="accent" *ngIf="product.isSpecial" selected>ویژه</mat-chip>
+                <mat-chip color="primary" *ngIf="product.isExists" selected>موجود</mat-chip>
+                <mat-chip color="warn" *ngIf="!product.isExists" selected>تمام شده</mat-chip>
+              </mat-chip-list>
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content class="mt-6">
+            <p class="mb-4">
+              <mat-icon class="mx-2">description</mat-icon>
+              {{ product.shortDescription }}
+            </p>
+            <div fxLayout.lt-sm="column" fxLayoutAlign="space-around center">
+              <mat-form-field>
+                <mat-label>تعداد</mat-label>
+                <input matInput type="number"></mat-form-field>
+              <button mat-stroked-button color="primary" class="m-3">
+                <mat-icon>add_shopping_cart</mat-icon>
+                افزودن به سبد خرید
+              </button>
+            </div>
+          </mat-card-content>
+        </mat-card-content>
+      </mat-card>
+      <!-- Details Start -->
+
+
+    </mat-card-content>
+
+  </mat-card>
+
+  <!-- Tabs Start -->
+  <mat-card class="m-4">
+    <mat-card-content>
+      <mat-tab-group color="accent" backgroundColor="primary">
+        <mat-tab label="توضیحات محصول"><p *ngIf="product.description" class="m-4">{{product.description}}</p></mat-tab>
+        <mat-tab label="مشخصات کالا">
+          <div class="m-4"> Content 2 </div>
+        </mat-tab>
+        <mat-tab label="نظرات کاربران">
+          <div class="m-4"> Content 2 </div>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+  <!-- Tabs End -->
+
+
+  <!--Related Products Start-->
+  <mat-card class="m-4">
+    <mat-header>
+      <mat-card-title>
+        محصولات مرتبط
+      </mat-card-title>
+    </mat-header>
+    <mat-content fxLayout='row wrap' fxLayoutAlign="center center">
+      <app-single-product  fxLayoutAlign="space-around stretch" [product]="product" *ngFor="let product of relatedProducts" fxFlex.gt-md="33.3" fxFlex.md="50" fxFlex.sm="100" fxFlex.xs="100"></app-single-product>
+    </mat-content>
+  </mat-card>
+  <!--Related Products End-->
+
+</div>
+
+<!-- Spinner Start -->
+<div fxLayout="column" fxLayoutAlign="center center" class="spinner" *ngIf="isLoading">
+  <div>
+    <mat-spinner></mat-spinner>
+  </div>
+</div>
+<!-- Spinner End -->

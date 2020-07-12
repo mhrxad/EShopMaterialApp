@@ -2,25 +2,30 @@
   <mat-card>
     <mat-card-header>
       <mat-card-title>
-        <div>{{product.productName}}</div>
+        {{product.productName}}
       </mat-card-title>
       <mat-card-subtitle>
         <mat-chip-list>
-          <mat-chip color="accent" selected>جدید</mat-chip>
+          <mat-chip color="accent" *ngIf="product.isSpecial" selected>ویژه</mat-chip>
+          <mat-chip color="primary" *ngIf="product.isExists" selected>موجود</mat-chip>
+          <mat-chip color="warn" *ngIf="!product.isExists" selected>تمام شده</mat-chip>
         </mat-chip-list>
       </mat-card-subtitle>
     </mat-card-header>
-    <img src="assets/images/product/large-size/1.jpg">
+    <img mat-card-image [src]="imagePath + product.imageName">
     <mat-card-content>
       <br>
       <p>{{product.shortDescription}}</p>
     </mat-card-content>
-    <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
-      <span>{{product.price}} تومان</span>
-      <button mat-stroked-button color="primary">افزودن به سبد خرید</button>
+    <mat-divider></mat-divider>
+    <mat-card-actions fxLayout="row" fxLayoutAlign="space-around center">
+      <button mat-stroked-button color="accent">{{product.price}} تومان</button>
+      <div class="m-2">
+        <button mat-mini-fab [routerLink]="['/products',product.id,productName]" color="primary" matTooltip="بیشتر" class="ml-3"><mat-icon>read_more</mat-icon></button>
+        <button mat-mini-fab color="primary" matTooltip="افزودن به سبد خرید"><mat-icon>add_shopping_cart</mat-icon></button>
+      </div>
     </mat-card-actions>
   </mat-card>
 </div>
-
 
 

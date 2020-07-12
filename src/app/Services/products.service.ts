@@ -4,6 +4,8 @@ import {FilterProductsDTO} from '../DTOs/Products/FilterProductsDTO';
 import {Observable} from 'rxjs';
 import {IResponseResult} from '../DTOs/Common/IResponseResult';
 import {ProductCategory} from '../DTOs/Products/ProductCategory';
+import {ProductDetailDTO} from '../DTOs/Products/ProductDetailDTO';
+import {Product} from '../DTOs/Products/Product';
 
 @Injectable({
   providedIn: 'root'
@@ -39,5 +41,12 @@ export class ProductsService {
     return this.http.get<IResponseResult<ProductCategory[]>>('/products/product-active-categories');
   }
 
+  getSingleProduct(productId: number): Observable<IResponseResult<ProductDetailDTO>> {
+    return this.http.get<IResponseResult<ProductDetailDTO>>('/products/single-product/' + productId);
+  }
+
+  getRelatedProducts(productId: number): Observable<IResponseResult<Product[]>> {
+    return this.http.get<IResponseResult<Product[]>>('/products/related-products/' + productId);
+  }
 
 }

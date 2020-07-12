@@ -1,3 +1,4 @@
+
 <mat-sidenav-container *ngIf="!isLoading">
   <mat-sidenav [opened]="!deviceXs" [mode]="!deviceXs ? 'side' : 'over'" #nav fxFlex.lt-sm="100" fxFlex.sm="35"
                fxFlex.lt-md="25" fxFlex.md="35" fxFlex="25">
@@ -135,12 +136,13 @@
 
 </mat-sidenav-container>
 
+<!-- Spinner Start -->
 <div fxLayout="column" fxLayoutAlign="center center" class="spinner" *ngIf="isLoading">
   <div>
     <mat-spinner></mat-spinner>
   </div>
 </div>
-
+<!-- Spinner End -->
 
 
 

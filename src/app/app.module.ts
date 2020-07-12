@@ -10,14 +10,13 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {CookieService} from 'ngx-cookie-service';
 import {EshopInterceptor} from './Utilities/EshopInterceptor';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { SingleProductComponent } from './SharedComponents/single-product/single-product.component';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
-    SingleProductComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,7 +27,7 @@ import { SingleProductComponent } from './SharedComponents/single-product/single
     NgImageSliderModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [
     {
