@@ -13,8 +13,7 @@ import {ProductDetailComponent} from './Pages/product-detail/product-detail.comp
 
 
 const routes: Routes = [
-  {path: '', redirectTo: 'home', pathMatch: 'full'},
-  {path: 'home', component: HomeComponent, data: { breadcrumb: 'خانه'}},
+  {path: '', component: HomeComponent},
   {path: 'register', component: RegisterComponent, data: { breadcrumb: 'ثبت نام'}},
   {path: 'activate-account/:activeCode', component: ActiveAccountComponent, data: { breadcrumb: 'فعال سازی اکانت'}},
   {path: 'login', component: LoginComponent, data: { breadcrumb: 'ورود'}},

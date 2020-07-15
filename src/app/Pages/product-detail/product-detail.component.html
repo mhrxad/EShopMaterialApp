@@ -69,12 +69,59 @@
   <mat-card class="m-4">
     <mat-card-content>
       <mat-tab-group color="accent" backgroundColor="primary">
-        <mat-tab label="توضیحات محصول"><p *ngIf="product.description" class="m-4">{{product.description}}</p></mat-tab>
+        <mat-tab label="توضیحات محصول" *ngIf="product"><p *ngIf="product.description" class="m-4">{{product.description}}</p></mat-tab>
         <mat-tab label="مشخصات کالا">
           <div class="m-4"> Content 2 </div>
         </mat-tab>
         <mat-tab label="نظرات کاربران">
-          <div class="m-4"> Content 2 </div>
+          <div class="m-4">
+
+            <!-- Message Form Start -->
+            <mat-card class="m-3" *ngIf="currentUser">
+              <mat-card-header>
+                <mat-card-title> ثبت نظر</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <form [formGroup]="commentForm" (ngSubmit)="addComment()">
+                  <div>
+                    <mat-form-field  fxFlex="100">
+                      <mat-label>متن پبام</mat-label>
+                      <textarea matInput formControlName="text" placeholder="متن پیام"></textarea>
+                      <mat-error *ngIf="commentForm.controls.text.errors?.required">
+                        متن خود را وارد کنید
+                      </mat-error>
+                      <mat-error *ngIf="commentForm.controls.text.errors?.maxlength">
+                        متن نظر نمیتواند بیشتر از 500 کاراکتر باشد
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div fxLayout="row" fxLayoutAlign="center center" class="m-3">
+                    <button mat-raised-button color="primary" type="submit" [disabled]="commentForm.invalid">
+                      ارسال نظر
+                    </button>
+                  </div>
+
+                </form>
+              </mat-card-content>
+            </mat-card>
+            <!-- Message Form End -->
+
+            <!-- User Messages Start -->
+            <div>
+              <mat-card class="m-2" *ngFor="let comment of productComments">
+                <mat-card-header>
+                  <img mat-card-avatar src="/assets/images/UserAvatar/Avatar.png">
+                  <mat-card-title>{{ comment.userFullName }}</mat-card-title>
+                  <mat-card-subtitle>{{ comment.createDate | date:'medium' }}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content [innerHTML]="comment.text">
+                </mat-card-content>
+              </mat-card>
+            </div>
+            <!-- User Messages End -->
+
+
+          </div>
         </mat-tab>
       </mat-tab-group>
     </mat-card-content>
@@ -84,14 +131,16 @@
 
   <!--Related Products Start-->
   <mat-card class="m-4">
-    <mat-header>
+    <mat-card-header>
       <mat-card-title>
         محصولات مرتبط
       </mat-card-title>
-    </mat-header>
-    <mat-content fxLayout='row wrap' fxLayoutAlign="center center">
-      <app-single-product  fxLayoutAlign="space-around stretch" [product]="product" *ngFor="let product of relatedProducts" fxFlex.gt-md="33.3" fxFlex.md="50" fxFlex.sm="100" fxFlex.xs="100"></app-single-product>
-    </mat-content>
+    </mat-card-header>
+    <mat-card-content fxLayout='row wrap' fxLayoutAlign="center center">
+      <app-single-product fxLayoutAlign="space-around stretch" [product]="product"
+                          *ngFor="let product of relatedProducts" fxFlex.gt-md="33.3" fxFlex.md="50" fxFlex.sm="100"
+                          fxFlex.xs="100"></app-single-product>
+    </mat-card-content>
   </mat-card>
   <!--Related Products End-->
 
