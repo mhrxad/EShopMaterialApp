@@ -10,6 +10,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {CookieService} from 'ngx-cookie-service';
 import {EshopInterceptor} from './Utilities/EshopInterceptor';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FooterSiteComponent } from './SharedComponents/footer-site/footer-site.component';
 
 
 
@@ -17,6 +18,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
   declarations: [
     AppComponent,
     routingComponents,
+    FooterSiteComponent,
   ],
   imports: [
     BrowserModule,
